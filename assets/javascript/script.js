@@ -7,6 +7,12 @@ var CHAR_Yoda;
 var CHAR_Anikin;
 var CHAR_ObiWan;
 
+var SPECIES_Human;
+var SPECIES_Droid;
+var SPECIES_Wookie;
+var SPECIES_Yoda;
+var SPECIES_Ewok;
+
 function fetchMainCharacters(){
     fetch(`https://swapi.dev/api/people`)
     .then(function (response) {
@@ -45,5 +51,30 @@ function fetchMainCharacters(){
     })
 })
 }
+function fetchMainSpecies(){
+    fetch(`https://swapi.dev/api/species`)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        //Pull main species from page one
+        SPECIES_Human = data.results[0];
+        SPECIES_Droid = data.results[1];
+        SPECIES_Wookie = data.results[2];
+        SPECIES_Yoda = data.results[5];
+        SPECIES_Ewok = data.results[8];
+    }).then(function(){
+        localStorage.setItem('MainSpecies', 
+            JSON.stringify([
+                SPECIES_Human,
+                SPECIES_Droid,
+                SPECIES_Wookie,
+                SPECIES_Yoda,
+                SPECIES_Ewok,
+
+            ]))
+    })
+}
 fetchMainCharacters();
+fetchMainSpecies();
 
