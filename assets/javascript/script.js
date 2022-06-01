@@ -21,6 +21,7 @@ var PLANETS_Hoth;
 var PLANETS_Endor;
 var PLANETS_Naboo;
 
+
 var STARSHIPS_Cr90Corvette;
 var STARSHIPS_StarDestroyer;
 var STARSHIPS_DeathStar;
@@ -38,6 +39,7 @@ var FILMS_ReturnOfTheJedi;
 var FILMS_ThePhantomMenace;
 var FILMS_AttackOfTheClones;
 var FILMS_RevengeOfTheSith;
+
 
 function fetchMainCharacters(){
     fetch(`https://swapi.dev/api/people`)
@@ -143,6 +145,11 @@ function fetchMainStarships(){
         STARSHIPS_YWing= data.results[5];
         STARSHIPS_XWing= data.results[6];
         STARSHIPS_TieAdvancedX1= data.results[7];
+
+fetchMainCharacters();
+fetchMainSpecies();
+fetchMainPlanets();
+
 
     }).then(function(){
         //Pull main starships from page two
