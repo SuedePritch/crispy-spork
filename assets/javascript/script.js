@@ -13,6 +13,14 @@ var SPECIES_Wookie;
 var SPECIES_Yoda;
 var SPECIES_Ewok;
 
+var PLANETS_Tatooine;
+var PLANETS_Alderaan;
+var PLANETS_Dagobah;
+var PLANETS_Coruscant;
+var PLANETS_Hoth;
+var PLANETS_Endor;
+var PLANETS_Naboo;
+
 function fetchMainCharacters(){
     fetch(`https://swapi.dev/api/people`)
     .then(function (response) {
@@ -75,6 +83,35 @@ function fetchMainSpecies(){
             ]))
     })
 }
+function fetchMainPlanets(){
+    fetch(`https://swapi.dev/api/planets`)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        //Pull main planets from page one
+        PLANETS_Tatooine = data.results[0];
+        PLANETS_Alderaan = data.results[1];
+        PLANETS_Hoth = data.results[3];
+        PLANETS_Dagobah = data.results[4];
+        PLANETS_Endor = data.results[6];
+        PLANETS_Naboo = data.results[7];
+        PLANETS_Coruscant = data.results[8];
+    }).then(function(){
+        localStorage.setItem('MainPlanets', 
+            JSON.stringify([
+                PLANETS_Tatooine,
+                PLANETS_Alderaan,
+                PLANETS_Hoth,
+                PLANETS_Dagobah,
+                PLANETS_Endor,
+                PLANETS_Naboo,
+                PLANETS_Coruscant
+
+            ]))
+    })
+}
 fetchMainCharacters();
 fetchMainSpecies();
+fetchMainPlanets();
 
