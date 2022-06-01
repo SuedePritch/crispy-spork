@@ -21,6 +21,26 @@ var PLANETS_Hoth;
 var PLANETS_Endor;
 var PLANETS_Naboo;
 
+
+var STARSHIPS_Cr90Corvette;
+var STARSHIPS_StarDestroyer;
+var STARSHIPS_DeathStar;
+var STARSHIPS_MillenniumFalcon;
+var STARSHIPS_YWing
+var STARSHIPS_XWing
+var STARSHIPS_TieAdvancedX1;
+var STARSHIPS_DroidControlShip;
+var STARSHIPS_NabooFighter;
+var STARSHIPS_NabooRoyalStarship;
+
+var FILMS_ANewHope;
+var FILMS_TheEmpireStrikesBack;
+var FILMS_ReturnOfTheJedi;
+var FILMS_ThePhantomMenace;
+var FILMS_AttackOfTheClones;
+var FILMS_RevengeOfTheSith;
+
+
 function fetchMainCharacters(){
     fetch(`https://swapi.dev/api/people`)
     .then(function (response) {
@@ -111,7 +131,80 @@ function fetchMainPlanets(){
             ]))
     })
 }
+function fetchMainStarships(){
+    fetch(`https://swapi.dev/api/starships`)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        //Pull main starships from page one
+        STARSHIPS_Cr90Corvette = data.results[0];
+        STARSHIPS_StarDestroyer = data.results[1];
+        STARSHIPS_DeathStar = data.results[3];
+        STARSHIPS_MillenniumFalcon = data.results[4];
+        STARSHIPS_YWing= data.results[5];
+        STARSHIPS_XWing= data.results[6];
+        STARSHIPS_TieAdvancedX1= data.results[7];
+
 fetchMainCharacters();
 fetchMainSpecies();
 fetchMainPlanets();
 
+
+    }).then(function(){
+        //Pull main starships from page two
+        fetch(`https://swapi.dev/api/starships?page=2`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            STARSHIPS_DroidControlShip = data.results[7];
+            STARSHIPS_NabooFighter = data.results[8];
+            STARSHIPS_NabooRoyalStarship = data.results[9];
+    }).then(function(){
+        localStorage.setItem('MainStarships', 
+            JSON.stringify([
+                STARSHIPS_Cr90Corvette,
+                STARSHIPS_StarDestroyer,
+                STARSHIPS_DeathStar,
+                STARSHIPS_MillenniumFalcon,
+                STARSHIPS_YWing,
+                STARSHIPS_XWing,
+                STARSHIPS_TieAdvancedX1,
+                STARSHIPS_DroidControlShip,
+                STARSHIPS_NabooFighter,
+                STARSHIPS_NabooRoyalStarship
+            ]))
+        })
+    })
+}
+function fetchFilms(){
+    fetch(`https://swapi.dev/api/films`)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        //Pull films from page one
+        FILMS_ANewHope = data.results[0];
+        FILMS_TheEmpireStrikesBack = data.results[1];
+        FILMS_ReturnOfTheJedi = data.results[2];
+        FILMS_ThePhantomMenace = data.results[3];
+        FILMS_AttackOfTheClones = data.results[4];
+        FILMS_RevengeOfTheSith = data.results[5];
+    }).then(function(){
+        localStorage.setItem('Films', 
+            JSON.stringify([
+                FILMS_ANewHope,
+                FILMS_TheEmpireStrikesBack,
+                FILMS_ReturnOfTheJedi,
+                FILMS_ThePhantomMenace,
+                FILMS_AttackOfTheClones,
+                FILMS_RevengeOfTheSith,
+            ]))
+    })
+}
+fetchMainCharacters();
+fetchMainSpecies();
+fetchMainPlanets();
+fetchMainStarships();
+fetchFilms();
