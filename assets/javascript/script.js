@@ -3,6 +3,9 @@ var speciesArray = [];
 var planetsArray = [];
 var starshipsArray = [];
 var filmsArray = [];
+var wikiPageId;
+//this needs to accept input from search bar
+var wikiSearchText = 'Han Solo'
 
 //these need to be verified as the idex was relating to the page number 
 //could be as easy as adding 10 to the index for each page
@@ -326,16 +329,39 @@ function fetchAllData(){
                 filmsArray.push(films)    
             }
         })    
-    }).then(function(){
-
-        console.log(peopleArray),
-        console.log(speciesArray),
-        console.log(planetsArray),
-        console.log(starshipsArray),
-        console.log(filmsArray)
-        })  
+    }) 
 })})
 }
 
+function wikiAPI(){
+    //this url will return a list of best matches and pageid
+    // http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=Leia20%Organa&format=json
+    // query.search.pageid
+    //This url will grab info on specifc page including url
+    // https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids=50784&inprop=url&format=json
+    //This fetch grabs pageid
+    fetch(`http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${wikiSearchText}&format=json&origin=*`)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        wikiPageId = data.query.search[0].pageid
+        wikiPageSnippet = data.query.search[0].snippet
+        console.log(wikiPageSnippet);
+    })
+    .then(function(){
+        fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids=${wikiPageId}&inprop=url&format=json&origin=*`)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+        wikiPageInfo = data.query.pages
+        wikiUrl = wikiPageInfo[`${wikiPageId}`].fullurl
+        
+    })
+    })
+}
+
 fetchAllData();
+wikiAPI();
 
