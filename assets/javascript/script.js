@@ -329,8 +329,9 @@ function fetchAllData(){
                 filmsArray.push(films)    
             }
         })    
-    }) 
-})})
+    })
+    })
+    })
 }
 
 function wikiAPI(){
@@ -357,9 +358,7 @@ function wikiAPI(){
     .then(function (data) {
         wikiPageInfo = data.query.pages
         wikiUrl = wikiPageInfo[`${wikiPageId}`].fullurl
-        
-    })
-    })
+})})
 }
 
 fetchAllData();
