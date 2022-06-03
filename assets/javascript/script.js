@@ -209,16 +209,6 @@ function wikiAPI(){
 
 
 
-//Event listeners for topic modal
-//opens and closes modal
-
-
-
-
-
-
-
-
 span.onclick = function() {
     modalEl.style.display = "none";
 }
