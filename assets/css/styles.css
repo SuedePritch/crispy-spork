@@ -55,7 +55,7 @@ h1{
 }
 
 .topic-list{
-    padding: 1rem;
+    padding: 0.5em;
     display: flex;
     justify-content: space-between;
     font-family: 'Spectral SC', serif;
@@ -64,7 +64,7 @@ h1{
 #search-input{
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
-    width:100%;
+    width:50%;
     font-family: star_jediregular;
 }
 
