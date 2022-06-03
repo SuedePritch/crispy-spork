@@ -447,13 +447,11 @@ window.onclick = function(event) {
     }    
 }
 
-modalEl.on('click', '.search-history-button' , function(event){
+modalEl.on('click', '.full-list-item' , function(event){
     var chosenSavedSearch = event.target.id
-    cityName = chosenSavedSearch
-    JSON.parse(localStorage.getItem(cityName))
-    loadCurrentWeather();
-    loadFiveDayForcast();
-}
+    chosenArticle = chosenSavedSearch
+    JSON.parse(localStorage.getItem(chosenArticle))
+})
 
 
 
