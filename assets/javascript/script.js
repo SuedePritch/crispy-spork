@@ -184,7 +184,6 @@ starshipsTopicEl.addEventListener('click', function(){
             $("#full-list").append(starshipsListItem)
         }
     }
-})   
 
         //fetch all species
     // }).then(function(){
@@ -231,7 +230,7 @@ starshipsTopicEl.addEventListener('click', function(){
     //         }
     //     })    
     // })
-
+ 
 function wikiAPI(){
     //this url will return a list of best matches and pageid
     // http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=Leia20%Organa&format=json
