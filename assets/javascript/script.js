@@ -62,6 +62,10 @@ var FILMS_ThePhantomMenace      = filmsArray[3];
 var FILMS_AttackOfTheClones     = filmsArray[4];
 var FILMS_RevengeOfTheSith      = filmsArray[5];
 
+// function sortArray(a,b){
+//     console.log(a.height, b.height);
+//     return a.height - b.height
+// }
 
 function fetchAllPeople(){
     //Fetch All People
@@ -78,6 +82,7 @@ function fetchAllPeople(){
         })
     }
 }
+
 peopleTopicEl.addEventListener('click', function(){
     fullListEl.innerHTML = '';
     modalEl.style.display = 'block';
@@ -179,8 +184,53 @@ starshipsTopicEl.addEventListener('click', function(){
             $("#full-list").append(starshipsListItem)
         }
     }
-})
 
+        //fetch all species
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/species`)
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //     for (let i = 0; i < data.results.length; i++) {
+    //         let species = data.results[i];
+    //         speciesArray.push(species)
+    //     }
+    //     //fetch all planets
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/planets`)
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //     for (let i = 0; i < data.results.length; i++) {
+    //         let planets = data.results[i];
+    //         planetsArray.push(planets)
+    //     }
+    //     //fetch all starships
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/starships`)
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //     for (let i = 0; i < data.results.length; i++) {
+    //         let starships = data.results[i];
+    //         starshipsArray.push(starships)
+    //     }
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/films`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let films = data.results[i];
+    //             filmsArray.push(films)    
+    //         }
+    //     })    
+    // })
+ 
 function wikiAPI(){
     //this url will return a list of best matches and pageid
     // http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=Leia20%Organa&format=json
@@ -206,7 +256,6 @@ function wikiAPI(){
         wikiUrl = wikiPageInfo[`${wikiPageId}`].fullurl
 })})
 }
-
 
 span.onclick = function() {
     modalEl.style.display = "none";
