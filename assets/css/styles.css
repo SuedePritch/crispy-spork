@@ -28,60 +28,90 @@ html {
 }
 
 body {
+    width:120vw;
+    height:130vh;
     background-image: url("light-mode.png");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: 100% 50%;
 }
-
-
-h1{
-    font-family: star_jediregular;
-    color:black;
-
-}
-.container{
-    position: relative;
-}
-#results-list{
-    position: fixed;
-    display: none;
-    width:100%;
-    max-width: 800px;
-    height:300px;
-    background: white;
-    border:10px solid black;
-    z-index:10;
-}
-.topic-list{
-    display: flex;
-    justify-content: space-between;
-}
-.topic-list:hover + #results-list{
-    display: flex;
-}
-#results-list:hover{
-    display: flex;
-}
-
 
 #gradient{
     position: absolute;
     width:100vw;
     height:100vh;
-    background: linear-gradient(100deg, hsla(0,100%,100%,1) 55%,hsla(0,100%,100%,0)75%);
+    background: linear-gradient(30deg, hsla(0,100%,100%,1) 45%,hsla(0,100%,100%,0)75%);
+}
+
+h1{
+    font-family: star_jediregular;
+    color:black;
+    font-size: clamp(1.5em, 8vw, 12em) !important;
+
+}
+.container{
+    position: relative;
+    width:fit-content;
+}
+
+.topic-list{
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Spectral SC', serif;
+    
 }
 #search-input{
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
+    width:100%;
+    font-family: star_jediregular;
 }
-.list-one{
+
+.topic-list > *{
+    font-size: clamp(1em,3vw,2.25em) !important;
+}
+#full-list{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+.full-list-item{
+    line-height: 1.3em;
     font-family: 'Spectral SC', serif;
 }
-.topic-list-item{
-    margin:1rem 1rem;
+.bottom-list{
+    font-family: star_jediregular;
 }
 
 
-.bottom-list{
-    font-family: star_jediregular;
+/* Modal styling */
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: hsla(0, 0%, 0%, 0.6);
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 100%;
+}
+#modal-close {
+    float:right;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+}
+    #modal-close:hover,
+    #modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
