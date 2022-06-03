@@ -1,17 +1,29 @@
+//element variables
+var peopleTopicEl = document.getElementById('topic-people')
+var speciesTopicEl = document.getElementById('topic-species')
+var planetsTopicEl = document.getElementById('topic-planets')
+var starshipsTopicEl = document.getElementById('topic-starships')
+
+var span = document.getElementsByClassName("close")[0];
+var modalEl = document.getElementById('topic-list-modal')
+var modalTitleEL = document.getElementById('modal-title')
+var fullListEl = document.getElementById('full-list')
+//arrays created from the fetch requests
 var peopleArray = [];
 var speciesArray = [];
 var planetsArray = [];
 var starshipsArray = [];
 var filmsArray = [];
+//WikiAPI variables
 var wikiPageId;
 //this needs to accept input from search bar
 var wikiSearchText = 'Han Solo'
 
-//these need to be verified as the idex was relating to the page number 
-//could be as easy as adding 10 to the index for each page
+//variables for main characters/species/planets/starships/films
+//"Top Searches"
 var CHAR_Luke                   = peopleArray[0];
-var CHAR_Leia                   = peopleArray[4];
 var CHAR_C3po                   = peopleArray[1];
+var CHAR_Leia                   = peopleArray[4];
 var CHAR_ObiWan                 = peopleArray[9];
 var CHAR_Anikin                 = peopleArray[72];
 var CHAR_Chewy                  = peopleArray[74];
@@ -52,286 +64,295 @@ var FILMS_RevengeOfTheSith      = filmsArray[5];
 
 
 function fetchAllData(){
+    peopleArray = []
     //Fetch All People
-    fetch(`https://swapi.dev/api/people`)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        for (let i = 0; i < data.results.length; i++) {
-            let people = data.results[i];
-            peopleArray.push(people)
-        }
-        
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=2`)
+    for (let i = 1; i < 83; i++) {
+        fetch(`https://swapi.dev/api/people/${i}`)
         .then(function (response) {
             return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
+        }).then(function (data) {
+            let people = data;
+            
+            if(people){
                 peopleArray.push(people)
+                localStorage.setItem('people', JSON.stringify(peopleArray));
             }
         })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=3`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
-                peopleArray.push(people)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=4`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
-                peopleArray.push(people)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=5`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
-                peopleArray.push(people)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=6`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
-                peopleArray.push(people)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=7`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
-                peopleArray.push(people)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=8`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
-                peopleArray.push(people)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/people?page=9`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let people = data.results[i];
-                peopleArray.push(people)    
-            }
-        })
+    }}
+    // })
+    // .then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=2`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=3`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=4`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=5`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=6`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=7`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=8`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/people?page=9`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let people = data.results[i];
+    //             peopleArray.push(people)    
+    //         }
+    //     }).then(function(){
+    //         console.log(peopleArray);
+    //         console.log(speciesArray);
+    //         console.log(planetsArray);
+    //         console.log(starshipsArray);
+    //     })
 
 
 
 
 
         //fetch all species
-    }).then(function(){
-        fetch(`https://swapi.dev/api/species`)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        for (let i = 0; i < data.results.length; i++) {
-            let species = data.results[i];
-            speciesArray.push(species)
-        }
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/species`)
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //     for (let i = 0; i < data.results.length; i++) {
+    //         let species = data.results[i];
+    //         speciesArray.push(species)
+    //     }
         
-    }).then(function(){
-        fetch(`https://swapi.dev/api/species?page=2`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let species = data.results[i];
-                speciesArray.push(species)
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/species?page=3`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let species = data.results[i];
-                speciesArray.push(species)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/species?page=4`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let species = data.results[i];
-                speciesArray.push(species)    
-            }
-        })
-    })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/species?page=2`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let species = data.results[i];
+    //             speciesArray.push(species)
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/species?page=3`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let species = data.results[i];
+    //             speciesArray.push(species)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/species?page=4`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let species = data.results[i];
+    //             speciesArray.push(species)    
+    //         }
+    //     })
+    // })
 
 
 
-        //fetch all planets
-    }).then(function(){
-        fetch(`https://swapi.dev/api/planets`)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        for (let i = 0; i < data.results.length; i++) {
-            let planets = data.results[i];
-            planetsArray.push(planets)
-        }
+    //     //fetch all planets
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/planets`)
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //     for (let i = 0; i < data.results.length; i++) {
+    //         let planets = data.results[i];
+    //         planetsArray.push(planets)
+    //     }
         
-    }).then(function(){
-        fetch(`https://swapi.dev/api/planets?page=2`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let planets = data.results[i];
-                planetsArray.push(planets)
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/planets?page=3`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let planets = data.results[i];
-                planetsArray.push(planets)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/planets?page=4`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let planets = data.results[i];
-                planetsArray.push(planets)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/planets?page=5`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let planets = data.results[i];
-                planetsArray.push(planets)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/planets?page=6`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let planets = data.results[i];
-                planetsArray.push(planets)    
-            }
-        })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/planets?page=2`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let planets = data.results[i];
+    //             planetsArray.push(planets)
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/planets?page=3`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let planets = data.results[i];
+    //             planetsArray.push(planets)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/planets?page=4`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let planets = data.results[i];
+    //             planetsArray.push(planets)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/planets?page=5`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let planets = data.results[i];
+    //             planetsArray.push(planets)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/planets?page=6`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let planets = data.results[i];
+    //             planetsArray.push(planets)    
+    //         }
+    //     })
 
-        //fetch all starships
-    }).then(function(){
-        fetch(`https://swapi.dev/api/starships`)
-    .then(function (response) {
-        return response.json();
-    })
-    .then(function (data) {
-        for (let i = 0; i < data.results.length; i++) {
-            let starships = data.results[i];
-            starshipsArray.push(starships)
-        }
+    //     //fetch all starships
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/starships`)
+    // .then(function (response) {
+    //     return response.json();
+    // })
+    // .then(function (data) {
+    //     for (let i = 0; i < data.results.length; i++) {
+    //         let starships = data.results[i];
+    //         starshipsArray.push(starships)
+    //     }
         
-    }).then(function(){
-        fetch(`https://swapi.dev/api/starships?page=2`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let starships = data.results[i];
-                starshipsArray.push(starships)
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/starships?page=3`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let starships = data.results[i];
-                starshipsArray.push(starships)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/starships?page=4`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let starships = data.results[i];
-                starshipsArray.push(starships)    
-            }
-        })
-    }).then(function(){
-        fetch(`https://swapi.dev/api/films`)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            for (let i = 0; i < data.results.length; i++) {
-                let films = data.results[i];
-                filmsArray.push(films)    
-            }
-        })    
-    }) 
-})})
-}
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/starships?page=2`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let starships = data.results[i];
+    //             starshipsArray.push(starships)
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/starships?page=3`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let starships = data.results[i];
+    //             starshipsArray.push(starships)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/starships?page=4`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let starships = data.results[i];
+    //             starshipsArray.push(starships)    
+    //         }
+    //     })
+    // }).then(function(){
+    //     fetch(`https://swapi.dev/api/films`)
+    //     .then(function (response) {
+    //         return response.json();
+    //     })
+    //     .then(function (data) {
+    //         for (let i = 0; i < data.results.length; i++) {
+    //             let films = data.results[i];
+    //             filmsArray.push(films)    
+    //         }
+    //     })    
+    // })
+   
 
 function wikiAPI(){
     //this url will return a list of best matches and pageid
@@ -347,7 +368,6 @@ function wikiAPI(){
     .then(function (data) {
         wikiPageId = data.query.search[0].pageid
         wikiPageSnippet = data.query.search[0].snippet
-        console.log(wikiPageSnippet);
     })
     .then(function(){
         fetch(`https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids=${wikiPageId}&inprop=url&format=json&origin=*`)
@@ -357,11 +377,49 @@ function wikiAPI(){
     .then(function (data) {
         wikiPageInfo = data.query.pages
         wikiUrl = wikiPageInfo[`${wikiPageId}`].fullurl
-        
-    })
-    })
+})})
 }
 
+
+
+//Event listeners for topic modal
+//opens and closes modal
+
+peopleTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = ''
+    modalEl.style.display = 'block';
+    modalTitleEL.textContent = peopleTopicEl.textContent
+    for (let i = 0; i < peopleArray.length; i++) {
+        const peopleListName = peopleArray[i].name;
+        var peopleListItem = $("<li>")
+        peopleListItem.text(peopleListName)
+        peopleListItem.addClass('full-list-item')
+        $("#full-list").append(peopleListItem)
+    }
+
+})
+speciesTopicEl.addEventListener('click', function(){
+    modalEl.style.display = 'block';
+    console.log('click');
+})
+planetsTopicEl.addEventListener('click', function(){
+    modalEl.style.display = 'block';
+    console.log('click');
+})
+starshipsTopicEl.addEventListener('click', function(){
+    modalEl.style.display = 'block';
+    console.log('click');
+})
+span.onclick = function() {
+    modalEl.style.display = "none";
+}
+window.onclick = function(event) {
+    if (event.target == modalEl) {
+    modalEl.style.display = "none";
+    }
+}
+
+
 fetchAllData();
-wikiAPI();
+// wikiAPI();
 
