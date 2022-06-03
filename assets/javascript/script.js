@@ -256,7 +256,7 @@ function wikiAPI(){
         wikiUrl = wikiPageInfo[`${wikiPageId}`].fullurl
 })})
 }
-
+})
 span.onclick = function() {
     modalEl.style.display = "none";
 }
@@ -267,12 +267,11 @@ window.onclick = function(event) {
 }
 
 function onInit(){
-
     fetchAllPeople();
     fetchAllSpecies();
     fetchAllPlanets();
     fetchAllStarships();
 }
+
 onInit();
-// wikiAPI();
 
