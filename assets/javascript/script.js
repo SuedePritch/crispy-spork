@@ -399,16 +399,44 @@ peopleTopicEl.addEventListener('click', function(){
 
 })
 speciesTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = ''
     modalEl.style.display = 'block';
-    console.log('click');
+    modalTitleEL.textContent = speciesTopicEl.textContent
+    for (let i = 0; i < speciesArray.length; i++) {
+        const peopleListName = speciesArray[i].name;
+        var speciesListItem = $("<li>")
+        speciesListItem.text(speciesListName)
+        speciesListItem.addClass('full-list-item')
+        $("#full-list").append(speciesListItem)
+    }
+    
+    
 })
 planetsTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = ''
     modalEl.style.display = 'block';
-    console.log('click');
+    modalTitleEL.textContent = planetsTopicEl.textContent
+    for (let i = 0; i < planetsArray.length; i++) {
+        const peopleListName = planetsArray[i].name;
+        var planetsListItem = $("<li>")
+        planetsListItem.text(planetsListName)
+        planetsListItem.addClass('full-list-item')
+        $("#full-list").append(planetsListItem)
+    }
+    
 })
 starshipsTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = ''
     modalEl.style.display = 'block';
-    console.log('click');
+    modalTitleEL.textContent = starshipsTopicEl.textContent
+    for (let i = 0; i < starshipsArray.length; i++) {
+        const peopleListName = starshipsArray[i].name;
+        var starshipsListItem = $("<li>")
+        starshipsListItem.text(starshipsListName)
+        starshipsListItem.addClass('full-list-item')
+        $("#full-list").append(starshipsListItem)
+    }
+    
 })
 span.onclick = function() {
     modalEl.style.display = "none";
