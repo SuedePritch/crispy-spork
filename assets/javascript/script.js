@@ -444,8 +444,17 @@ span.onclick = function() {
 window.onclick = function(event) {
     if (event.target == modalEl) {
     modalEl.style.display = "none";
-    }
+    }    
 }
+
+modalEl.on('click', '.search-history-button' , function(event){
+    var chosenSavedSearch = event.target.id
+    cityName = chosenSavedSearch
+    JSON.parse(localStorage.getItem(cityName))
+    loadCurrentWeather();
+    loadFiveDayForcast();
+}
+
 
 
 fetchAllData();
