@@ -266,6 +266,12 @@ window.onclick = function(event) {
     }
 }
 
+modalEl.on('click', '.full-list-item' , function(event){
+    var chosenSavedSearch = event.target.id
+    chosenLink = chosenSavedSearch
+    JSON.parse(localStorage.getItem(chosenLink))
+})
+
 function onInit(){
     fetchAllPeople();
     fetchAllSpecies();
