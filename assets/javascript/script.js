@@ -67,7 +67,7 @@ var FILMS_RevengeOfTheSith      = filmsArray[5];
 //     return a.height - b.height
 // }
 
-function fetchAllData(){
+function fetchAllPeople(){
     //Fetch All People
     for (let i = 1; i < 83; i++) {
         fetch(`https://swapi.dev/api/people/${i}`)
@@ -82,12 +82,109 @@ function fetchAllData(){
         })
     }
 }
-    
-    
 
+peopleTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = '';
+    modalEl.style.display = 'block';
+    modalTitleEL.textContent = peopleTopicEl.textContent
+    for (let i = 0; i < 83; i++) {
+        const peopleListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/people/${i}/`))
+        var peopleListItem = $("<li>")
+        if(peopleListName){
+            peopleListItem.text(peopleListName.name)
+            peopleListItem.addClass('full-list-item')
+            $("#full-list").append(peopleListItem)
+        }
+    }
 
-
-
+})
+function fetchAllSpecies(){
+    //Fetch All Species
+    for (let i = 1; i < 38; i++) {
+        fetch(`https://swapi.dev/api/species/${i}`)
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            let species = data;
+            
+            if(species){
+                localStorage.setItem(species.url, JSON.stringify(species))
+            }
+        })
+    }
+}
+speciesTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = '';
+    modalEl.style.display = 'block';
+    modalTitleEL.textContent = speciesTopicEl.textContent
+    for (let i = 0; i < 38; i++) {
+        const speciesListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/species/${i}/`))
+        var speciesListItem = $("<li>")
+        if(speciesListName){
+            speciesListItem.text(speciesListName.name)
+            speciesListItem.addClass('full-list-item')
+            $("#full-list").append(speciesListItem)
+        }
+    }
+})
+function fetchAllPlanets(){
+    //Fetch All Planets
+    for (let i = 1; i < 30; i++) {
+        fetch(`https://swapi.dev/api/planets/${i}`)
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            let planets = data;
+            
+            if(planets){
+                localStorage.setItem(planets.url, JSON.stringify(planets))
+            }
+        })
+    }
+}
+planetsTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = '';
+    modalEl.style.display = 'block';
+    modalTitleEL.textContent = planetsTopicEl.textContent
+    for (let i = 0; i < 30; i++) {
+        const planetsListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/planets/${i}/`))
+        var planetsListItem = $("<li>")
+        if(planetsListName){
+            planetsListItem.text(planetsListName.name)
+            planetsListItem.addClass('full-list-item')
+            $("#full-list").append(planetsListItem)
+        }
+    }
+})
+function fetchAllStarships(){
+    //Fetch All Starships
+    for (let i = 1; i < 80; i++) {
+        fetch(`https://swapi.dev/api/starships/${i}`)
+        .then(function (response) {
+            return response.json();
+        }).then(function (data) {
+            let starships = data;
+            
+            if(starships){
+                localStorage.setItem(starships.url, JSON.stringify(starships))
+            }
+        })
+    }
+}
+starshipsTopicEl.addEventListener('click', function(){
+    fullListEl.innerHTML = '';
+    modalEl.style.display = 'block';
+    modalTitleEL.textContent = starshipsTopicEl.textContent
+    for (let i = 0; i < 80; i++) {
+        const starshipsListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/starships/${i}/`))
+        var starshipsListItem = $("<li>")
+        if(starshipsListName){
+            starshipsListItem.text(starshipsListName.name)
+            starshipsListItem.addClass('full-list-item')
+            $("#full-list").append(starshipsListItem)
+        }
+    }
+})   
 
         //fetch all species
     // }).then(function(){
@@ -161,71 +258,6 @@ function wikiAPI(){
 })})
 }
 
-
-
-//Event listeners for topic modal
-//opens and closes modal
-
-peopleTopicEl.addEventListener('click', function(){
-    fullListEl.innerHTML = '';
-    modalEl.style.display = 'block';
-    // peopleArray.sort(sortArray)
-    console.log(peopleArray);
-    modalTitleEL.textContent = peopleTopicEl.textContent
-    for (let i = 0; i < 83; i++) {
-        const peopleListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/people/${i}/`))
-        var peopleListItem = $("<li>")
-        if(peopleListName){
-            peopleListItem.text(peopleListName.name)
-            peopleListItem.addClass('full-list-item')
-            $("#full-list").append(peopleListItem)
-        }
-    }
-
-})
-speciesTopicEl.addEventListener('click', function(){
-    fullListEl.innerHTML = ''
-    modalEl.style.display = 'block';
-    modalTitleEL.textContent = speciesTopicEl.textContent
-    for (let i = 0; i < speciesArray.length; i++) {
-        const peopleListName = speciesArray[i].name;
-        var speciesListItem = $("<li>")
-        speciesListItem.text(speciesListName)
-        speciesListItem.addClass('full-list-item')
-        $("#full-list").append(speciesListItem)
-    }
-    
-    
-})
-planetsTopicEl.addEventListener('click', function(){
-    fullListEl.innerHTML = ''
-    modalEl.style.display = 'block';
-    modalTitleEL.textContent = planetsTopicEl.textContent
-    for (let i = 0; i < planetsArray.length; i++) {
-        const peopleListName = planetsArray[i].name;
-        var planetsListItem = $("<li>")
-        planetsListItem.text(planetsListName)
-        planetsListItem.addClass('full-list-item')
-        $("#full-list").append(planetsListItem)
-    }
-    
-})
-starshipsTopicEl.addEventListener('click', function(){
-    fullListEl.innerHTML = ''
-    modalEl.style.display = 'block';
-    modalTitleEL.textContent = starshipsTopicEl.textContent
-    for (let i = 0; i < starshipsArray.length; i++) {
-        const peopleListName = starshipsArray[i].name;
-        var starshipsListItem = $("<li>")
-        starshipsListItem.text(starshipsListName)
-        starshipsListItem.addClass('full-list-item')
-        $("#full-list").append(starshipsListItem)
-    }
-    
-})
-
-
-
 span.onclick = function() {
     modalEl.style.display = "none";
 }
@@ -235,7 +267,13 @@ window.onclick = function(event) {
     }
 }
 
+function onInit(){
 
-fetchAllData();
+    fetchAllPeople();
+    fetchAllSpecies();
+    fetchAllPlanets();
+    fetchAllStarships();
+}
+onInit();
 // wikiAPI();
 
