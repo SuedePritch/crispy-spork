@@ -145,7 +145,39 @@ starshipsTopicEl.addEventListener('click', function(){
             $("#full-list").append(starshipsListItem)
         }
     }
+}
+)
 
+function fetchAllFilms(){
+        //Fetch All Films
+        for (let i = 1; i < 7; i++) {
+            fetch(`https://swapi.dev/api/films/${i}`)
+            .then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                let films = data;
+                
+                if(films){
+                    localStorage.setItem(films.url, JSON.stringify(films))
+                }
+            })
+        }
+    }
+$('.films-list-item').on('click', function(event){
+    var filmClicked = event.target.dataset.film
+    var filmObject = JSON.parse(localStorage.getItem(`${filmClicked}`))
+    fullListEl.innerHTML = '';
+    modalEl.style.display = 'block';
+    modalTitleEL.textContent = filmObject.title
+    var filmDetails = `
+        <li>Episode ${filmObject.episode_id}</li>
+        <li>${filmObject.opening_crawl}</li>
+        `
+
+    $("#full-list").append(filmDetails)
+
+}
+)
 function wikiAPI(){
     //this url will return a list of best matches and pageid
     // http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=Leia20%Organa&format=json
@@ -171,15 +203,21 @@ function wikiAPI(){
         wikiUrl = wikiPageInfo[`${wikiPageId}`].fullurl
 })})
 }
-})
+
+
+
 
 
 span.onclick = function() {
+    $("#full-list").empty()
+    $("#details-list").empty()
     modalEl.style.display = "none";
 }
 window.onclick = function(event) {
     if (event.target == modalEl) {
-    modalEl.style.display = "none";
+        $("#full-list").empty()
+        $("#details-list").empty()
+        modalEl.style.display = "none";
     }
 }
 //event listener for clicking on list item in modal
@@ -188,11 +226,56 @@ $('#full-list').on('click', '.full-list-item' , function(event){
     var listItemClicked = event.target.dataset.index
     var linkCreator = `https://swapi.dev/api/${whichList}/${listItemClicked}/`
     dataFromLocal = JSON.parse(localStorage.getItem(linkCreator))
-    console.log(dataFromLocal);
+    loadDetails(dataFromLocal, whichList);
     
 })
 
+
+function loadDetails(dataFromLocal, whichList){
+    modalTitleEL.textContent = dataFromLocal.name.toLowerCase()
+    $("#full-list").empty()
+    if(whichList == 'people'){
+        var createDetailsList = `
+        <li>Skin color:  ${dataFromLocal.skin_color}</li>
+        <li>Eye color:  ${dataFromLocal.eye_color}</li>
+        <li>Height:  ${dataFromLocal.height}<small>cm</small></li>
+        <li>Mass:  ${dataFromLocal.mass}<small>kg</small></li>
+        <li>Gender:  ${dataFromLocal.gender}</li>
+        <li>Birth Year:  ${dataFromLocal.birth_year}</li>
+        `
+    }else if(whichList == 'species'){
+        var createDetailsList = `
+        <li>Language:  ${dataFromLocal.language}</li>
+        <li>Average Height:  ${dataFromLocal.average_height}<small>cm</small></li>
+        <li>Average Lifespan:  ${dataFromLocal.average_lifespan}<small>years</small></li>
+        <li>Designation:  ${dataFromLocal.designation}</li>
+        <li>Skin Color:  ${dataFromLocal.skin_colors}</li>
+        `
+    }else if(whichList == 'planets'){
+        var createDetailsList = `
+        <li>Diameter:  ${dataFromLocal.diameter}</li>
+        <li>Climate:  ${dataFromLocal.climate}</li>
+        <li>Terrain:  ${dataFromLocal.terrain}</li>
+        <li>Year:  ${dataFromLocal.orbital_period}<small>days</small></li>
+        <li>Day:  ${dataFromLocal.rotation_period}<small>hours</small></li>
+        <li>Population:  ${dataFromLocal.population}</li>
+        `
+    }else if(whichList == 'starships'){
+        var createDetailsList = `
+        <li>Crew:  ${dataFromLocal.crew}</li>
+        <li>Cost:  ${dataFromLocal.cost_in_credits}<small>credits</small></li>
+        <li>HyperDrive Rating:  ${dataFromLocal.hyperdrive_rating}</li>
+        <li>Length:  ${dataFromLocal.length} <small>meters</small></li>
+        <li>Cargo Capacity:  ${dataFromLocal.cargo_capacity}</li>
+        `
+    }else{
+        return
+    }
+    $("#details-list").append(createDetailsList)
+}
+
 function onInit(){
+    fetchAllFilms();
     fetchAllPeople();
     fetchAllSpecies();
     fetchAllPlanets();

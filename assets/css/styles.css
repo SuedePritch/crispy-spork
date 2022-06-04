@@ -64,7 +64,7 @@ h1{
 #search-input{
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
-    width:50%;
+    width:100%;
     font-family: star_jediregular;
 }
 
@@ -102,6 +102,13 @@ h1{
     padding: 20px;
     border: 1px solid #888;
     width: 100%;
+}
+#modal-title{
+    font-family: star_jediregular;
+    font-size: 2em;
+}
+#details-list > li{
+    font-family: 'Spectral SC', serif;
 }
 #modal-close {
     float:right;
