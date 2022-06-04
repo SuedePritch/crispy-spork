@@ -34,22 +34,22 @@
             </div>
             <div class="bottom-list fixed inset-x-0 bottom-1 ">
                 <ul class="ml-auto flex items-center space-x-4 justify-center">
-                    <li>A Phantom Menace</li>
-                    <li>Attack of the Clones</li>
-                    <li>Revenge of the Sith</li>
-                    <li>A New Hope</li>
-                    <li>Empire Strikes Back</li>
-                    <li>Return of the Jedi</li>
+                    <li class="films-list-item" data-film="https://swapi.dev/api/films/4/">A Phantom Menace</li>
+                    <li class="films-list-item" data-film="https://swapi.dev/api/films/5/">Attack of the Clones</li>
+                    <li class="films-list-item" data-film="https://swapi.dev/api/films/6/">Revenge of the Sith</li>
+                    <li class="films-list-item" data-film="https://swapi.dev/api/films/1/">A New Hope</li>
+                    <li class="films-list-item" data-film="https://swapi.dev/api/films/2/">Empire Strikes Back</li>
+                    <li class="films-list-item" data-film="https://swapi.dev/api/films/3/">Return of the Jedi</li>
                 </ul>
             </div>
         </div>
-        <div class="modal" id="topic-list-modal">
+        <div class="modal" id="topic-list-modal" data-index="">
             <div class="modal-content">
                 <span class="close" id="modal-close">&times;</span>
-                <h3 id="modal-title"></h3>
+                <h2 id="modal-title"></h2>
                 <ul id="full-list">
-
                 </ul>
+                <ul id="details-list"></ul>
             </div>
         </div>
     </div>
