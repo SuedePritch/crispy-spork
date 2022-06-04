@@ -8,64 +8,13 @@ var span = document.getElementsByClassName("close")[0];
 var modalEl = document.getElementById('topic-list-modal')
 var modalTitleEL = document.getElementById('modal-title')
 var fullListEl = document.getElementById('full-list')
-//arrays created from the fetch requests
-var peopleArray = [];
-var speciesArray = [];
-var planetsArray = [];
-var starshipsArray = [];
-var filmsArray = [];
+
 //WikiAPI variables
 var wikiPageId;
 //this needs to accept input from search bar
 var wikiSearchText = 'Han Solo'
 
-//variables for main characters/species/planets/starships/films
-//"Top Searches"
-var CHAR_Luke                   = peopleArray[0];
-var CHAR_C3po                   = peopleArray[1];
-var CHAR_Leia                   = peopleArray[4];
-var CHAR_ObiWan                 = peopleArray[9];
-var CHAR_Anikin                 = peopleArray[72];
-var CHAR_Chewy                  = peopleArray[74];
-var CHAR_HanSolo                = peopleArray[75];
-var CHAR_Yoda                   = peopleArray[80];
-
-var SPECIES_Human               = speciesArray[0];
-var SPECIES_Droid               = speciesArray[1];
-var SPECIES_Wookie              = speciesArray[2];
-var SPECIES_Yoda                = speciesArray[5];
-var SPECIES_Ewok                = speciesArray[8];
-
-var PLANETS_Tatooine            = planetsArray[0];
-var PLANETS_Alderaan            = planetsArray[1];
-var PLANETS_Hoth                = planetsArray[3];
-var PLANETS_Dagobah             = planetsArray[4];
-var PLANETS_Endor               = planetsArray[6];
-var PLANETS_Naboo               = planetsArray[7];
-var PLANETS_Coruscant           = planetsArray[8];                
-
-var STARSHIPS_Cr90Corvette      = starshipsArray[0];
-var STARSHIPS_StarDestroyer     = starshipsArray[1];
-var STARSHIPS_DeathStar         = starshipsArray[3];
-var STARSHIPS_MillenniumFalcon  = starshipsArray[4];
-var STARSHIPS_YWing             = starshipsArray[5];
-var STARSHIPS_XWing             = starshipsArray[6];
-var STARSHIPS_TieAdvancedX1     = starshipsArray[7];
-var STARSHIPS_DroidControlShip  = starshipsArray[33];
-var STARSHIPS_NabooFighter      = starshipsArray[34];
-var STARSHIPS_NabooRoyalStarship= starshipsArray[35];
-
-var FILMS_ANewHope              = filmsArray[0];
-var FILMS_TheEmpireStrikesBack  = filmsArray[1];
-var FILMS_ReturnOfTheJedi       = filmsArray[2];
-var FILMS_ThePhantomMenace      = filmsArray[3];
-var FILMS_AttackOfTheClones     = filmsArray[4];
-var FILMS_RevengeOfTheSith      = filmsArray[5];
-
-// function sortArray(a,b){
-//     console.log(a.height, b.height);
-//     return a.height - b.height
-// }
+var dataFromLocal;
 
 function fetchAllPeople(){
     //Fetch All People
@@ -93,11 +42,15 @@ peopleTopicEl.addEventListener('click', function(){
         if(peopleListName){
             peopleListItem.text(peopleListName.name)
             peopleListItem.addClass('full-list-item')
+            peopleListItem.attr('data-index', i)
             $("#full-list").append(peopleListItem)
+            
         }
     }
 
 })
+
+
 function fetchAllSpecies(){
     //Fetch All Species
     for (let i = 1; i < 38; i++) {
@@ -123,10 +76,14 @@ speciesTopicEl.addEventListener('click', function(){
         if(speciesListName){
             speciesListItem.text(speciesListName.name)
             speciesListItem.addClass('full-list-item')
+            speciesListItem.attr('data-index', i)
+            
             $("#full-list").append(speciesListItem)
         }
     }
 })
+
+
 function fetchAllPlanets(){
     //Fetch All Planets
     for (let i = 1; i < 30; i++) {
@@ -143,19 +100,22 @@ function fetchAllPlanets(){
     }
 }
 planetsTopicEl.addEventListener('click', function(){
-    fullListEl.innerHTML = '';
-    modalEl.style.display = 'block';
-    modalTitleEL.textContent = planetsTopicEl.textContent
-    for (let i = 0; i < 30; i++) {
-        const planetsListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/planets/${i}/`))
-        var planetsListItem = $("<li>")
-        if(planetsListName){
-            planetsListItem.text(planetsListName.name)
-            planetsListItem.addClass('full-list-item')
-            $("#full-list").append(planetsListItem)
-        }
+fullListEl.innerHTML = '';
+modalEl.style.display = 'block';
+modalTitleEL.textContent = planetsTopicEl.textContent
+for (let i = 0; i < 30; i++) {
+    const planetsListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/planets/${i}/`))
+    var planetsListItem = $("<li>")
+    if(planetsListName){
+        planetsListItem.text(planetsListName.name)
+        planetsListItem.addClass('full-list-item')
+        planetsListItem.attr('data-index', i)
+        $("#full-list").append(planetsListItem)
     }
+}
 })
+
+
 function fetchAllStarships(){
     //Fetch All Starships
     for (let i = 1; i < 80; i++) {
@@ -181,6 +141,7 @@ starshipsTopicEl.addEventListener('click', function(){
         if(starshipsListName){
             starshipsListItem.text(starshipsListName.name)
             starshipsListItem.addClass('full-list-item')
+            starshipsListItem.attr('data-index', i)
             $("#full-list").append(starshipsListItem)
         }
     }
@@ -211,6 +172,8 @@ function wikiAPI(){
 })})
 }
 })
+
+
 span.onclick = function() {
     modalEl.style.display = "none";
 }
@@ -219,10 +182,14 @@ window.onclick = function(event) {
     modalEl.style.display = "none";
     }
 }
-modalEl.on('click', '.full-list-item' , function(event){
-    var chosenSavedSearch = event.target.id
-    chosenLink = chosenSavedSearch
-    JSON.parse(localStorage.getItem(chosenLink))
+//event listener for clicking on list item in modal
+$('#full-list').on('click', '.full-list-item' , function(event){
+    var whichList = $('#modal-title').text().toLowerCase();
+    var listItemClicked = event.target.dataset.index
+    var linkCreator = `https://swapi.dev/api/${whichList}/${listItemClicked}/`
+    dataFromLocal = JSON.parse(localStorage.getItem(linkCreator))
+    console.log(dataFromLocal);
+    
 })
 
 function onInit(){
