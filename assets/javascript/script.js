@@ -25,7 +25,7 @@ function fetchAllPeople(){
             return response.json();
         }).then(function (data) {
             let people = data;
-            
+            people.image = `./assets/images/people/people${i}.png`
             if(people){
                 localStorage.setItem(people.url, JSON.stringify(people))
             }
@@ -60,7 +60,7 @@ function fetchAllSpecies(){
             return response.json();
         }).then(function (data) {
             let species = data;
-            
+            species.image = `./assets/images/species/species${i}.png`
             if(species){
                 localStorage.setItem(species.url, JSON.stringify(species))
             }
@@ -93,7 +93,7 @@ function fetchAllPlanets(){
             return response.json();
         }).then(function (data) {
             let planets = data;
-            
+            planets.image = `./assets/images/planets/planets${i}.png`
             if(planets){
                 localStorage.setItem(planets.url, JSON.stringify(planets))
             }
@@ -118,14 +118,15 @@ for (let i = 0; i < 30; i++) {
 
 
 function fetchAllStarships(){
+    let ships = [2,3,5,9,10,11,12,13,15,17,21,22,23,27,28,29,31,32,39,40,41,43,47,48,49,52,58,59,61,63,64,65,66,68,74,75]
     //Fetch All Starships
-    for (let i = 1; i < 80; i++) {
+    for (let i of ships) {
         fetch(`https://swapi.dev/api/starships/${i}`)
         .then(function (response) {
-            return response.json();
+                return response.json();
         }).then(function (data) {
             let starships = data;
-            
+            starships.image = `./assets/images/starships/starships${i}.png`
             if(starships){
                 localStorage.setItem(starships.url, JSON.stringify(starships))
             }
@@ -136,7 +137,7 @@ starshipsTopicEl.addEventListener('click', function(){
     fullListEl.innerHTML = '';
     modalEl.style.display = 'block';
     modalTitleEL.textContent = starshipsTopicEl.textContent
-    for (let i = 0; i < 80; i++) {
+    for (let i = 0; i < 76; i++) {
         const starshipsListName = JSON.parse(localStorage.getItem(`https://swapi.dev/api/starships/${i}/`))
         var starshipsListItem = $("<li>")
         if(starshipsListName){
@@ -187,7 +188,6 @@ function wikiAPI(dataFromLocal){
     // https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids=50784&inprop=url&format=json
     //This fetch grabs pageid
     wikiSearchText = dataFromLocal.name
-    console.log(wikiSearchText);
     fetch(`http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${wikiSearchText}&format=json&origin=*`)
     .then(function (response) {
         return response.json();
@@ -227,10 +227,6 @@ window.onclick = function(event) {
         modalEl.style.display = "none";
     }
 }
-function pushImageToArray(){
-    var person_yoda = localStorage.getItem('https;//swapi.dev/people/20')
-    person_yoda.push('image', './assets/images/Yoda.webp')
-}
 //event listener for clicking on list item in modal
 $('#full-list').on('click', '.full-list-item' , function(event){
     var whichList = $('#modal-title').text().toLowerCase();
@@ -243,8 +239,7 @@ $('#full-list').on('click', '.full-list-item' , function(event){
 })
 
 
-function loadDetails(dataFromLocal, whichList, wikiUrl){
-    pushImageToArray();
+function loadDetails(dataFromLocal, whichList){
     modalTitleEL.textContent = dataFromLocal.name.toLowerCase()
     $("#full-list").empty()
     if(whichList == 'people'){
@@ -255,8 +250,9 @@ function loadDetails(dataFromLocal, whichList, wikiUrl){
         <li>Mass:  ${dataFromLocal.mass}<small>kg</small></li>
         <li>Gender:  ${dataFromLocal.gender}</li>
         <li>Birth Year:  ${dataFromLocal.birth_year}</li>
-        <li><img src='${dataFromLocal.image}'></li>
+        <img src='${dataFromLocal.image}'>
         <li> <a id="more-info">More Info </a> </li>
+        
         `;
     }else if(whichList == 'species'){
         var createDetailsList = `
@@ -264,6 +260,7 @@ function loadDetails(dataFromLocal, whichList, wikiUrl){
         <li>Average Height:  ${dataFromLocal.average_height}<small>cm</small></li>
         <li>Average Lifespan:  ${dataFromLocal.average_lifespan}<small>years</small></li>
         <li>Skin Color:  ${dataFromLocal.skin_colors}</li>
+        <img src='${dataFromLocal.image}'>
         <li> <a id="more-info">More Info </a> </li>
         `
     }else if(whichList == 'planets'){
@@ -274,6 +271,7 @@ function loadDetails(dataFromLocal, whichList, wikiUrl){
         <li>Year:  ${dataFromLocal.orbital_period}<small>days</small></li>
         <li>Day:  ${dataFromLocal.rotation_period}<small>hours</small></li>
         <li>Population:  ${dataFromLocal.population}</li>
+        <img src='${dataFromLocal.image}'>
         <li> <a id="more-info">More Info </a> </li>
         `
     }else if(whichList == 'starships'){
@@ -283,6 +281,7 @@ function loadDetails(dataFromLocal, whichList, wikiUrl){
         <li>HyperDrive Rating:  ${dataFromLocal.hyperdrive_rating}</li>
         <li>Length:  ${dataFromLocal.length} <small>meters</small></li>
         <li>Cargo Capacity:  ${dataFromLocal.cargo_capacity}</li>
+        <img src='${dataFromLocal.image}'>
         <li> <a id="more-info">More Info </a> </li>
         `
     }else{
@@ -297,6 +296,7 @@ function onInit(){
     fetchAllSpecies();
     fetchAllPlanets();
     fetchAllStarships();
+    
 }
 
 onInit();
