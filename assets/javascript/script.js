@@ -227,6 +227,10 @@ window.onclick = function(event) {
         modalEl.style.display = "none";
     }
 }
+function pushImageToArray(){
+    var person_yoda = localStorage.getItem('https;//swapi.dev/people/20')
+    person_yoda.push('image', './assets/images/Yoda.webp')
+}
 //event listener for clicking on list item in modal
 $('#full-list').on('click', '.full-list-item' , function(event){
     var whichList = $('#modal-title').text().toLowerCase();
@@ -240,6 +244,7 @@ $('#full-list').on('click', '.full-list-item' , function(event){
 
 
 function loadDetails(dataFromLocal, whichList, wikiUrl){
+    pushImageToArray();
     modalTitleEL.textContent = dataFromLocal.name.toLowerCase()
     $("#full-list").empty()
     if(whichList == 'people'){
@@ -250,6 +255,7 @@ function loadDetails(dataFromLocal, whichList, wikiUrl){
         <li>Mass:  ${dataFromLocal.mass}<small>kg</small></li>
         <li>Gender:  ${dataFromLocal.gender}</li>
         <li>Birth Year:  ${dataFromLocal.birth_year}</li>
+        <li><img src='${dataFromLocal.image}'></li>
         <li> <a id="more-info">More Info </a> </li>
         `;
     }else if(whichList == 'species'){
