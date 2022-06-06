@@ -5,6 +5,8 @@ The web application that allows you to traverse the vast database of the StarWar
 The application brings a dynamic search functionality for the characters, species, planets, ships, and films.
 You can see the deployment of the application below.
 
+![](images/application.png)
+
 # Technical Challenges
 
 There were several technical challeges we faced during the initial development of this project which accounted for most of the time spent working. The main ones include:
