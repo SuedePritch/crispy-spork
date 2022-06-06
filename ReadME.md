@@ -18,6 +18,30 @@ There were several technical challeges we faced during the initial development o
 
 This project would not be possible without the use of:
 
+* Javascript/jQuery
+* CSS/Tailwind
+* StarWars API
+* Wikipedia API
+
+# Contributors
+
+##  James Pritchard
+* Programmer (Javascript)
+* Troubleshooter
+* API Wizard
+
+## Ryan Acham
+* Designer
+* CSS Developer
+
+## Eric Thmok
+* Programmer (JavaScript)
+* Troubleshooter
+
+## Yonis Hussein
+* Designer
+* HTML
+
 
 
 
