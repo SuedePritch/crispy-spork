@@ -188,7 +188,7 @@ function wikiAPI(dataFromLocal){
     // https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids=50784&inprop=url&format=json
     //This fetch grabs pageid
     wikiSearchText = dataFromLocal.name
-    fetch(`http://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${wikiSearchText}&format=json&origin=*`)
+    fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${wikiSearchText}&format=json&origin=*`)
     .then(function (response) {
         return response.json();
     })
@@ -251,7 +251,7 @@ function loadDetails(dataFromLocal, whichList){
         <li>Gender:  ${dataFromLocal.gender}</li>
         <li>Birth Year:  ${dataFromLocal.birth_year}</li>
         <img src='${dataFromLocal.image}'>
-        <li> <a id="more-info">More Info </a> </li>
+        <li> <a id="more-info" target="_blank">More Info </a> </li>
         
         `;
     }else if(whichList == 'species'){
@@ -261,7 +261,7 @@ function loadDetails(dataFromLocal, whichList){
         <li>Average Lifespan:  ${dataFromLocal.average_lifespan}<small>years</small></li>
         <li>Skin Color:  ${dataFromLocal.skin_colors}</li>
         <img src='${dataFromLocal.image}'>
-        <li> <a id="more-info">More Info </a> </li>
+        <li> <a id="more-info" target="_blank">More Info </a> </li>
         `
     }else if(whichList == 'planets'){
         var createDetailsList = `
@@ -272,7 +272,7 @@ function loadDetails(dataFromLocal, whichList){
         <li>Day:  ${dataFromLocal.rotation_period}<small>hours</small></li>
         <li>Population:  ${dataFromLocal.population}</li>
         <img src='${dataFromLocal.image}'>
-        <li> <a id="more-info">More Info </a> </li>
+        <li> <a id="more-info" target="_blank">More Info </a> </li>
         `
     }else if(whichList == 'starships'){
         var createDetailsList = `
@@ -282,7 +282,7 @@ function loadDetails(dataFromLocal, whichList){
         <li>Length:  ${dataFromLocal.length} <small>meters</small></li>
         <li>Cargo Capacity:  ${dataFromLocal.cargo_capacity}</li>
         <img src='${dataFromLocal.image}'>
-        <li> <a id="more-info">More Info </a> </li>
+        <li> <a id="more-info" target="_blank">More Info </a> </li>
         `
     }else{
         return
