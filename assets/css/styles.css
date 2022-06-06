@@ -78,6 +78,7 @@ h1{
 .full-list-item{
     line-height: 1.3em;
     font-family: 'Spectral SC', serif;
+    text-decoration: underline;
 }
 .bottom-list{
     font-family: star_jediregular;
@@ -125,3 +126,17 @@ h1{
 
 /* jquery hide message*/
 .ui-helper-hidden-accessible { display:none; }
+
+/*Dark Mode*/
+.button{
+    font-family: star_jediregular;
+}
+
+.dark {
+    width:120vw;
+    height:130vh;
+    background-image: url("dark-mode.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 100% 50%;
+}
