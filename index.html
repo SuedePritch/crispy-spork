@@ -62,7 +62,7 @@
                     element.classList.toggle("dark");
 
                     var x = document.getElementById("gradient");
-                    var y = document.getElementById("h1");
+                    var y = document.querySelector("h1");
                     
                     if (x.style.display === "none"){
                         x.style.color = "black"
@@ -71,31 +71,13 @@
                     }
                     else {
                         x.style.color = "white"
-                        //y.style.color = "white"
+                        y.style.color = "white"
                         x.style.background = "none";
                     }
                 }
             </script>
         </div>
-    </div>
-    
-
-    <!--<button class="btn btn-mode">
-        Dark Mode
-    </button>
-
-    <style>
-        .btn{
-            @apply font-bold py-2 px-4 rounded;
-        }
-
-        .btn-mode{
-            @apply bg-grey-500 text-black;
-        }
-        .btn-mode:hover{
-            @apply bg-grey-700;
-        }
-    </style>-->
+    </div>    
 
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

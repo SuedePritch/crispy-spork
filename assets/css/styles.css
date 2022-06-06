@@ -135,7 +135,7 @@ h1{
 .dark {
     width:120vw;
     height:130vh;
-    background-image: url("dark-mode.jpg");
+    background-image: url("dark-mode.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 100% 50%;
