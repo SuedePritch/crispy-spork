@@ -12,7 +12,7 @@
     <title>Jedi Archives</title>
 </head>
 <body>
-        <div id="gradient"">
+        <div id="gradient">
             <div class="container ml-6">
                 <div class = "right-0">
                     <h1>Jedi Archives</h1>
@@ -52,8 +52,51 @@
                 <ul id="details-list"></ul>
             </div>
         </div>
+        <div class="button flex">
+            <button class="bg-grey-500 hover:bg-grey-900 text-black py-2 px-4 rounded-full absolute inset-y-0 right-0 w-16" onclick="darkMode()">
+                Dark Mode
+            </button>
+            <script>
+                function darkMode() {
+                    var element = document.body;
+                    element.classList.toggle("dark");
+
+                    var x = document.getElementById("gradient");
+                    var y = document.getElementById("h1");
+                    
+                    if (x.style.display === "none"){
+                        x.style.color = "black"
+                        y.style.color = "black"
+                        x.style.background = "linear-gradient(30deg, hsla(0,100%,100%,1) 45%,hsla(0,100%,100%,0)75%)";
+                    }
+                    else {
+                        x.style.color = "white"
+                        //y.style.color = "white"
+                        x.style.background = "none";
+                    }
+                }
+            </script>
+        </div>
     </div>
-        
+    
+
+    <!--<button class="btn btn-mode">
+        Dark Mode
+    </button>
+
+    <style>
+        .btn{
+            @apply font-bold py-2 px-4 rounded;
+        }
+
+        .btn-mode{
+            @apply bg-grey-500 text-black;
+        }
+        .btn-mode:hover{
+            @apply bg-grey-700;
+        }
+    </style>-->
+
             <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
             <script>
