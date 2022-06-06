@@ -28,6 +28,7 @@ function fetchAllPeople(){
             people.image = `./assets/images/people/people${i}.png`
             if(people){
                 localStorage.setItem(people.url, JSON.stringify(people))
+                localStorage.setItem(people.name, JSON.stringify(people))
             }
         })
     }
@@ -288,7 +289,23 @@ function loadDetails(dataFromLocal, whichList){
         return
     }
     $("#details-list").append(createDetailsList)
+
 }
+var searchBar = document.getElementById('autocomplete');
+var btn = document.getElementById('search-submit');
+
+function getInputValue(){
+    var inputVal=document.getElementById('autocomplete').value;
+    dataFromLocal = JSON.parse(localStorage.getItem(inputVal))
+    console.log(dataFromLocal)
+}
+btn.addEventListener('click',()=>{
+        var inputVal=document.getElementById('autocomplete').value;
+        dataFromLocal = JSON.parse(localStorage.getItem(inputVal))
+        whichList='people'
+        loadDetails (dataFromLocal,whichList)
+        modalEl.style.display = "flex";
+    });
 
 function onInit(){
     fetchAllFilms();
